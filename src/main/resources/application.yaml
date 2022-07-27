@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3300/wypozyczalnia_nart?serverTimezone=Europe/Warsaw&createDatabaseIfNotExist=true
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8080
