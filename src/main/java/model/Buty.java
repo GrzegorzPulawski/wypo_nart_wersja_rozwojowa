@@ -1,5 +1,6 @@
 package model;
 
+import dto.ButyDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,5 +24,9 @@ public class Buty {
 
     @ManyToOne
     private Komplet komplet;
+
+    public ButyDTO mapButyDTO(){
+        return new ButyDTO(idButy, nazwaButow, rozmiarButow, rodzajButow);
+    }
 
 }

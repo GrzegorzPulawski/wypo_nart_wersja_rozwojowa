@@ -1,5 +1,6 @@
 package model;
 
+import dto.NartyDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,5 +24,9 @@ public class Narty {
 
     @ManyToOne
     private Komplet komplet;
+
+    public NartyDTO mapNartDTO(){
+        return new NartyDTO(idNart,nazwaNart, dlugoscNart, rodzajNart);
+    }
 
 }
