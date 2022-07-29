@@ -19,10 +19,10 @@ public class Komplet {
     private String nazwaKomplet;
     private Double cenaDoba;
 
-    @OneToOne()
-    private Narty narty;
-    @OneToOne()
-    private Buty buty;
+    @OneToMany(mappedBy = "komplet")
+    private List<Narty> narty;
+    @OneToMany(mappedBy = "komplet")
+    private List<Buty> buty;
 
     @OneToMany(mappedBy = "komplet")
     private List<Wypozyczenie> wypozyczenie;

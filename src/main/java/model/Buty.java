@@ -21,7 +21,7 @@ public class Buty {
     @Enumerated(EnumType.STRING)
     private RodzajButow rodzajButow;
 
-    @OneToOne(mappedBy = "buty")
+    @ManyToOne
     private Komplet komplet;
 
 }
