@@ -1,15 +1,14 @@
-package dto;
+package wypozyczalnia.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import model.RodzajButow;
+import wypozyczalnia.model.RodzajButow;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ButyDTO {
+public class CreateButyRequest {
 
-    private Long idButy;
     private String nazwaButow;
     private Integer rozmiarButow;
     private RodzajButow rodzajButow;

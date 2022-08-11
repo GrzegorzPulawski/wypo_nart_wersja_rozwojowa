@@ -1,4 +1,4 @@
-package model;
+package wypozyczalnia.model;
 
 public enum RodzajButow {
     NARCIARSKIE,

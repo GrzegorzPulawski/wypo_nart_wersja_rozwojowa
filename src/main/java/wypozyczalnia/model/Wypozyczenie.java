@@ -1,4 +1,4 @@
-package model;
+package wypozyczalnia.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @Entity
 public class Wypozyczenie {
     @Id
-    private Long idWypozyczenie;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idWypozyczenie;
 
     private LocalDateTime dataWypozyczenia;
     private LocalDateTime dataZwrotu;

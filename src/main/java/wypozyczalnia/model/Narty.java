@@ -1,9 +1,10 @@
-package model;
+package wypozyczalnia.model;
 
-import dto.NartyDTO;
+import wypozyczalnia.dto.CreateNartyRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import wypozyczalnia.dto.NartyDTO;
 
 import javax.persistence.*;
 
@@ -22,11 +23,10 @@ public class Narty {
     @Enumerated(EnumType.STRING)
     private  RodzajNart rodzajNart;
 
-    @ManyToOne
+    @OneToOne
     private Komplet komplet;
 
-    public NartyDTO mapNartDTO(){
-        return new NartyDTO(idNart,nazwaNart, dlugoscNart, rodzajNart);
-    }
 
+    public NartyDTO mapNartyToDTO() {return new NartyDTO(idNart, nazwaNart, dlugoscNart, rodzajNart);
+    }
 }

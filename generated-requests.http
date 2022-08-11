@@ -1,0 +1,12 @@
+### Zwraca listę ButyDTO (id, nazwa...)
+GET http://localhost:8090/api/buty
+
+### Zwraca listę NartyDTO (id, nazwa...)
+GET http://localhost:8090/api/narty
+
+### Posiadamy id butów i id nart
+POST http://localhost:8090/api/komplet
+Content-Type: application/json
+
+{
+}

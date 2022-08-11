@@ -1,4 +1,4 @@
-package model;
+package wypozyczalnia.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,20 +11,17 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Komplet {
+public class Klient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idKomplet;
+    private Long idKlient;
 
-    private String nazwaKomplet;
-    private Double cenaDoba;
+    private String nazwisko;
+    private String imie;
+    private String nrDowodu;
+    private String nrTelefonu;
 
-    @OneToMany(mappedBy = "komplet")
-    private List<Narty> narty;
-    @OneToMany(mappedBy = "komplet")
-    private List<Buty> buty;
-
-    @OneToMany(mappedBy = "komplet")
+    @OneToMany(mappedBy = "klient")
     private List<Wypozyczenie> wypozyczenie;
 
 }

@@ -1,6 +1,6 @@
-package repository;
+package wypozyczalnia.repository;
 
-import model.Narty;
+import wypozyczalnia.model.Narty;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface NartyRepository extends JpaRepository<Narty, Long> {

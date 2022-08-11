@@ -1,6 +1,7 @@
-package model;
+package wypozyczalnia.model;
 
-import dto.ButyDTO;
+import wypozyczalnia.dto.ButyDTO;
+import wypozyczalnia.dto.CreateButyRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,8 +14,8 @@ import javax.persistence.*;
 @Entity
 public class Buty {
     @Id
-    private Long idButy;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idButy;
 
     private String nazwaButow;
     private Integer rozmiarButow;
@@ -22,10 +23,10 @@ public class Buty {
     @Enumerated(EnumType.STRING)
     private RodzajButow rodzajButow;
 
-    @ManyToOne
+    @OneToOne
     private Komplet komplet;
 
-    public ButyDTO mapButyDTO(){
+    public ButyDTO mapButyToDTO(){
         return new ButyDTO(idButy, nazwaButow, rozmiarButow, rodzajButow);
     }
 
