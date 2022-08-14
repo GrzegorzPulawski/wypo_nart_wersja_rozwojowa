@@ -3,6 +3,7 @@ package wypozyczalnia.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import wypozyczalnia.dto.KlientDTO;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,5 +24,7 @@ public class Klient {
 
     @OneToMany(mappedBy = "klient")
     private List<Wypozyczenie> wypozyczenie;
+
+    public KlientDTO mapKlientToDTO(){return new KlientDTO (idKlient, nazwisko, imie, nrDowodu, nrTelefonu);    }
 
 }
