@@ -2,13 +2,14 @@ package wypozyczalnia.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import wypozyczalnia.dto.CreateKlientRequest;
+import wypozyczalnia.dto.KlientDTO;
 import wypozyczalnia.model.Klient;
 import wypozyczalnia.service.KlientService;
+
+import java.util.List;
 
 @Slf4j
 @RequestMapping("/api/klient")
@@ -17,9 +18,17 @@ import wypozyczalnia.service.KlientService;
 
 public class KlientController {
     private final KlientService klientService;
-
-    public void createKlient(@PathVariable String nrTelefonu,  @RequestBody CreateKlientRequest klientRequest){
-        klientService.add(nrTelefonu, klientRequest);
-
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createKlient(@RequestBody CreateKlientRequest klientRequest){
+        log.info("Create klient:"+klientRequest);
+        klientService.add(klientRequest);
     }
+    @GetMapping
+    @ResponseStatus(HttpStatus.FOUND)
+    public List<KlientDTO> klientDTOList(){
+        log.info("Request: Lista klientow");
+        return klientService.findAll();
+    }
+
 }
