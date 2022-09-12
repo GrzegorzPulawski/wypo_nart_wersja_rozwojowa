@@ -26,7 +26,7 @@ public class ButyController {
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     public List<ButyDTO> butyDTOList() {
         log.info("Request: list");
         return butyService.findAll();

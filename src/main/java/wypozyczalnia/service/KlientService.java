@@ -26,7 +26,7 @@ public class KlientService {
                klientRepository.save(klient);
                return;
         }
-        throw new EntityNotFoundException("Klient o podanym numerze telefonu już istnieje"+ klientRequest.getNrTelefonu());
+        throw new EntityNotFoundException("Klient o podanym numerze telefonu już istnieje :"+ klientRequest.getNrTelefonu());
     }
 
     public List<KlientDTO> findAll() {

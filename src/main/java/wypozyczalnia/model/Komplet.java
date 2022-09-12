@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import wypozyczalnia.dto.KompletDTO;
 
 import javax.persistence.*;
 import java.util.List;
@@ -30,4 +31,7 @@ public class Komplet {
     @OneToMany(mappedBy = "komplet")
     private List<Wypozyczenie> wypozyczenie;
 
+    public KompletDTO mapButyToDTO() {
+        return new KompletDTO(null, this.nazwaKomplet, this.cenaDoba);
+    }
 }

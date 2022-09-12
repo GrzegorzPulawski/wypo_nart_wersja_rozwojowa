@@ -24,7 +24,7 @@ public class NartyController {
         nartyService.addNarty(createNartyRequest);
     }
     @GetMapping
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     public List<NartyDTO> nartyDTOList() {
         log.info("Request: list");
         return nartyService.findAll();

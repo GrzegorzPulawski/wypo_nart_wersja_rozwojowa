@@ -4,9 +4,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import wypozyczalnia.dto.CreateKompletRequest;
+import wypozyczalnia.dto.KompletDTO;
 import wypozyczalnia.dto.RentKompletRequest;
 import wypozyczalnia.model.Komplet;
 import wypozyczalnia.service.KompletService;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -21,8 +24,8 @@ public class KompletController {
     }
 
     @PatchMapping
-    public void rentKomplet(@RequestBody RentKompletRequest request){
-        kompletService.rent(request);
+    public List<KompletDTO> rentKomplet(@RequestBody RentKompletRequest request){
+        return kompletService.findAll();
     }
 
 

@@ -20,6 +20,7 @@ public class NartyService {
         Narty narty = new Narty(null, createNartyRequest.getNazwaNart(), createNartyRequest.getDlugoscNart(), createNartyRequest.getRodzajNart(), null);
         nartyRepository.save(narty);
     }
+
     public List<NartyDTO> findAll() {
         List<Narty> nartyList = nartyRepository.findAll();
 

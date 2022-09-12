@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import wypozyczalnia.dto.CreateKompletRequest;
-import wypozyczalnia.dto.RentKompletRequest;
+import wypozyczalnia.dto.KompletDTO;
 import wypozyczalnia.model.Buty;
 import wypozyczalnia.model.Komplet;
 import wypozyczalnia.model.Narty;
@@ -13,6 +13,7 @@ import wypozyczalnia.repository.KompletRepository;
 import wypozyczalnia.repository.NartyRepository;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,7 +49,12 @@ public class KompletService {
         throw new EntityNotFoundException("Nie moge znaleźć butów");
     }
 
-    public void rent(RentKompletRequest request) {
-
+    public List<KompletDTO> findAll() {
+        List<Komplet> kompletList= kompletRepository.findAll();
+        List<KompletDTO> kompletDTOs = new ArrayList<>();
+        for (Komplet komplet : kompletList) {
+            kompletDTOs.add(komplet.mapButyToDTO());
+        }
+        return kompletDTOs;
     }
 }
