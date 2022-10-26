@@ -32,6 +32,6 @@ public class Komplet {
     private List<Wypozyczenie> wypozyczenie;
 
     public KompletDTO mapButyToDTO() {
-        return new KompletDTO(null, this.nazwaKomplet, this.cenaDoba);
+        return new KompletDTO(idKomplet, this.nazwaKomplet, this.cenaDoba);
     }
 }

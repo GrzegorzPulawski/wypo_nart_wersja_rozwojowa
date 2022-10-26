@@ -23,8 +23,8 @@ public class KompletController {
         kompletService.add(request);
     }
 
-    @PatchMapping
-    public List<KompletDTO> rentKomplet(@RequestBody RentKompletRequest request){
+    @GetMapping
+    public List<KompletDTO> kompletDTOList(){
         return kompletService.findAll();
     }
 

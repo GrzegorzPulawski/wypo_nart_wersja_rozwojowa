@@ -25,7 +25,7 @@ public class KlientController {
         klientService.add(klientRequest);
     }
     @GetMapping
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     public List<KlientDTO> klientDTOList(){
         log.info("Request: Lista klientow");
         return klientService.findAll();

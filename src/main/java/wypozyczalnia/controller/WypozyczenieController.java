@@ -13,7 +13,7 @@ import wypozyczalnia.service.WypozyczenieService;
 public class WypozyczenieController {
     private final WypozyczenieService wypozyczenieService;
 
-    @PostMapping
+    @PostMapping("/rent")
     public void rentKomplet( @RequestBody CreateWypozyczenie createWypozyczenie){
         log.info("Request wypozyczenie kompletu z id: " + createWypozyczenie);
         wypozyczenieService.addWypozyczenie(createWypozyczenie);
@@ -21,7 +21,11 @@ public class WypozyczenieController {
     // 1. Dodanie wypozyczenia
     //  Tworzymy Wypozyczenie gdzie cena wypozyczenia (cenaWypozyczenia) = 30 zł [per doba]
     //                              cena ostateczna   (cenaOstateczna)   = null
-
+    @PostMapping("/return")
+    public void returnKomplet(@RequestParam Long idWypozyczenie){
+        log.info("Request zwrot kompletu z id: "+ idWypozyczenie);
+        wypozyczenieService.returnWypozyczenie(idWypozyczenie);
+    }
     // 2. Zwrot kompletu (wypozyczenie)
     //  Szukamy wypozyczenia konkretnego (po id)
     //                              cena wypozyczenia nie zmienia sie    = 30 zł [per doba]
