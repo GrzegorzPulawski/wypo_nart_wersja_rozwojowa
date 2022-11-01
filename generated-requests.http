@@ -8,7 +8,6 @@ GET http://localhost:8090/api/narty
 POST http://localhost:8090/api/komplet
 Content-Type: application/json
 
-
 ### Posiadamy id butów i id nart
 GET http://localhost:8090/api/klient
 
@@ -21,8 +20,19 @@ POST http://localhost:8090/api/wypozyczenie/rent
 Content-Type: application/json
 
 {
-  "idWypozyczenie": 4
-
+  "idKomplet": 8,
+  "idKlient": 8
 }
+
+### Zwrot wypozyczenia
+PUT http://localhost:8090/api/wypozyczenie/return?idWypozyczenie=2
+Content-Type: application/json
+
+
+### Lista wypozyczen
+GET http://localhost:8090/api/wypozyczenie/list
+Content-Type: application/json
+
+
 
 

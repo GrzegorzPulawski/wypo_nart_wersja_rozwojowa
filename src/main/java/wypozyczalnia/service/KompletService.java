@@ -29,6 +29,7 @@ public class KompletService {
         Optional<Buty> optionalButy = butyRepository.findById(request.getIdButy());
         if (optionalButy.isPresent()) {
             Buty buty = optionalButy.get();
+
             Optional<Narty> optionalNarty = nartyRepository.findById(request.getIdNarty());
             if (optionalNarty.isPresent()) {
                 Narty narty = optionalNarty.get();
@@ -53,7 +54,7 @@ public class KompletService {
         List<Komplet> kompletList= kompletRepository.findAll();
         List<KompletDTO> kompletDTOs = new ArrayList<>();
         for (Komplet komplet : kompletList) {
-            kompletDTOs.add(komplet.mapButyToDTO());
+            kompletDTOs.add(komplet.mapKompletToDTO());
         }
         return kompletDTOs;
     }

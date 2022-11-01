@@ -3,7 +3,9 @@ package wypozyczalnia.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RestController;
 import wypozyczalnia.dto.CreateWypozyczenie;
+import wypozyczalnia.dto.WypozyczenieDTO;
 import wypozyczalnia.model.Klient;
 import wypozyczalnia.model.Komplet;
 import wypozyczalnia.model.Wypozyczenie;
@@ -13,8 +15,9 @@ import wypozyczalnia.repository.WypozyczenieRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -24,7 +27,8 @@ public class WypozyczenieService {
     private final WypozyczenieRepository wypozyczenieRepository;
     private final KompletRepository kompletRepository;
     private final KlientRepository klientRepository;
-    public void addWypozyczenie( CreateWypozyczenie createWypozyczenie) {
+
+    public void addWypozyczenie(CreateWypozyczenie createWypozyczenie) {
         // Jak sprawdzić czy komplet jest wypożyczony?
         //   - pobieramy szukany komplet
         //   - z kompletu bierzemy listę wynajmów
@@ -40,7 +44,7 @@ public class WypozyczenieService {
                 Klient klient = optionalKlient.get();
 
                 //sprawdzamy, czy komplet nie jest wypozyczony
-                if(!isRented(komplet)) {
+                if (!isRented(komplet)) {
                     //kreujemy wypozyczenie
                     Wypozyczenie wypozyczenie = Wypozyczenie.builder()
                             .dataWypozyczenia(LocalDateTime.now())
@@ -61,49 +65,62 @@ public class WypozyczenieService {
             throw new EntityNotFoundException("Zestaw jest niedostępny");
         }
     }
+
     public void returnWypozyczenie(Long idWypozyczenie) {
-            // Szukam konkretnego wypozyczenia
+        // Szukam konkretnego wypozyczenia
         Optional<Wypozyczenie> wypozyczenieOptional = wypozyczenieRepository.findById(idWypozyczenie);
         if (wypozyczenieOptional.isPresent()) {
             Wypozyczenie wypozyczenie = wypozyczenieOptional.get();
 
-            //Ustawiam datę zwrotu
-            wypozyczenie.setDataZwrotu(LocalDateTime.now());
 
-            //Ustalamy ilość wypozyczonych dni
-            LocalDateTime dataZwrotu = wypozyczenie.getDataZwrotu();
-            LocalDateTime dataWypozyczenia = wypozyczenie.getDataWypozyczenia();
+            if (wypozyczenie.getDataZwrotu() == null) {
+                //Ustawiam datę zwrotu
+                wypozyczenie.setDataZwrotu(LocalDateTime.now());
 
-            Duration duration = Duration.between(dataWypozyczenia, dataZwrotu);
+                //Ustalamy ilość wypozyczonych dni
+                LocalDateTime dataZwrotu = wypozyczenie.getDataZwrotu();
+                LocalDateTime dataWypozyczenia = wypozyczenie.getDataWypozyczenia();
 
-            //Zmieniamy róznicę w czasie w liczbę
-             long durationSeconds = duration.getSeconds();
-             double durationHouers = durationSeconds / 3600.0;
+                Duration duration = Duration.between(dataWypozyczenia, dataZwrotu);
 
-             double durationDays=Math.ceil(durationHouers/24);
+                //Zmieniamy róznicę w czasie w liczbę
+                long durationSeconds = duration.getSeconds();
+                double durationHouers = durationSeconds / 3600.0;
 
-            //Pobieramy cenę za dobę
-            Double cenaWypozyczenia = wypozyczenie.getCenaWypozyczenia();
+                double durationDays = Math.ceil(durationHouers / 24);
 
-            // ustawiamy cenę ostateczną
-            Double cenaOstateczna = cenaWypozyczenia * durationDays;
+                //Pobieramy cenę za dobę
+                Double cenaWypozyczenia = wypozyczenie.getCenaWypozyczenia();
 
-            // Trzeba wprowadzić cene ostateczną do bazy
-            wypozyczenie.setCenaOstateczna(cenaOstateczna);
-            //aktualizacja w bazie
-            wypozyczenieRepository.save(wypozyczenie);
-            return;
+                // ustawiamy cenę ostateczną
+                Double cenaOstateczna = cenaWypozyczenia * durationDays;
+
+                // Trzeba wprowadzić cene ostateczną do bazy
+                wypozyczenie.setCenaOstateczna(cenaOstateczna);
+                //aktualizacja w bazie
+                wypozyczenieRepository.save(wypozyczenie);
+                return;
+            }
         }
-        throw new EntityNotFoundException("Unable to find wypozyczenie with id: "+ idWypozyczenie);
+        throw new EntityNotFoundException("Unable to find wypozyczenie with id: " + idWypozyczenie);
     }
 
     //Metoda sprawdza czy komplet jest wynajęty
     private boolean isRented(Komplet komplet) {
-        for (Wypozyczenie wypozyczenie : komplet.getWypozyczenie()){
-            if (wypozyczenie.getDataZwrotu() != null){
+        for (Wypozyczenie wypozyczenie : komplet.getWypozyczenie()) {
+            if (wypozyczenie.getDataZwrotu() != null) {
                 return true;
             }
         }
-        return  false;
+        return false;
+    }
+
+    public List<WypozyczenieDTO> listWypozyczenie() {
+        List<Wypozyczenie> wypozyczenieList = wypozyczenieRepository.findAll();
+        List<WypozyczenieDTO> wypozyczenieDTOList = new ArrayList<>();
+        for (Wypozyczenie wypozyczenie : wypozyczenieList) {
+            wypozyczenieDTOList.add(wypozyczenie.mapWypozyczenieToDTO());
+        }
+        return wypozyczenieDTOList;
     }
 }

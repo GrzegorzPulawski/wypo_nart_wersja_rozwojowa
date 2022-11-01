@@ -31,7 +31,7 @@ public class Komplet {
     @OneToMany(mappedBy = "komplet")
     private List<Wypozyczenie> wypozyczenie;
 
-    public KompletDTO mapButyToDTO() {
+    public KompletDTO mapKompletToDTO() {
         return new KompletDTO(idKomplet, this.nazwaKomplet, this.cenaDoba);
     }
 }
