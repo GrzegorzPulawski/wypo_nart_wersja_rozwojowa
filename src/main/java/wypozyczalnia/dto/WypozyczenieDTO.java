@@ -15,5 +15,8 @@ public class WypozyczenieDTO {
     private LocalDateTime dataZwrotu;
     private Double cenaWypozyczenia;
     private Double cenaOstateczna;
+    private Long idKomplet;
+    private String nrTelefonu;
+    private String nazwisko;
 
 }

@@ -16,6 +16,7 @@ import wypozyczalnia.repository.WypozyczenieRepository;
 import javax.persistence.EntityNotFoundException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -75,7 +76,11 @@ public class WypozyczenieService {
 
             if (wypozyczenie.getDataZwrotu() == null) {
                 //Ustawiam datę zwrotu
+                //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm");
+                //LocalDateTime localDateTime = LocalDateTime.now();
+
                 wypozyczenie.setDataZwrotu(LocalDateTime.now());
+
 
                 //Ustalamy ilość wypozyczonych dni
                 LocalDateTime dataZwrotu = wypozyczenie.getDataZwrotu();

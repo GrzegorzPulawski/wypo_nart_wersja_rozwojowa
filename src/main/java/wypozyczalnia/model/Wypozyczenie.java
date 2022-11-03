@@ -33,6 +33,6 @@ public class Wypozyczenie {
     private Klient klient;
 
     public WypozyczenieDTO mapWypozyczenieToDTO() {
-        return new WypozyczenieDTO(idWypozyczenie, this.dataWypozyczenia, this.dataZwrotu, this.cenaWypozyczenia, this.cenaOstateczna);
+        return new WypozyczenieDTO(idWypozyczenie, this.dataWypozyczenia, this.dataZwrotu, this.cenaWypozyczenia, this.cenaOstateczna, komplet.getIdKomplet(), klient.getNrTelefonu(), klient.getNazwisko());
     }
 }
