@@ -3,7 +3,6 @@ package wypozyczalnia.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 import wypozyczalnia.dto.CreateWypozyczenie;
 import wypozyczalnia.dto.WypozyczenieDTO;
 import wypozyczalnia.model.Klient;
@@ -16,7 +15,6 @@ import wypozyczalnia.repository.WypozyczenieRepository;
 import javax.persistence.EntityNotFoundException;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -119,7 +117,7 @@ public class WypozyczenieService {
         }
         return false;
     }
-
+    // Metoda listuje wszystkie wypozyczenia
     public List<WypozyczenieDTO> listWypozyczenie() {
         List<Wypozyczenie> wypozyczenieList = wypozyczenieRepository.findAll();
         List<WypozyczenieDTO> wypozyczenieDTOList = new ArrayList<>();
@@ -127,5 +125,16 @@ public class WypozyczenieService {
             wypozyczenieDTOList.add(wypozyczenie.mapWypozyczenieToDTO());
         }
         return wypozyczenieDTOList;
+    }
+    //Metoda wyświetla wszyskie dane z wybranej po ID encji
+    public List<WypozyczenieDTO> showWypozyczenie(Long idWypozyczenie) {
+        List<Wypozyczenie> wypozyczenieList = wypozyczenieRepository.findAll();
+        List<WypozyczenieDTO> wypozyczenieDTOList = new ArrayList<>();
+        for (Wypozyczenie wypozyczenie :wypozyczenieList){
+            if (wypozyczenie.getIdWypozyczenie() == idWypozyczenie) {
+                wypozyczenieDTOList.add(wypozyczenie.mapWypozyczenieToDTO());
+            }
+        }
+            return wypozyczenieDTOList ;
     }
 }

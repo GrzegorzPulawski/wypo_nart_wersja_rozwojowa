@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import wypozyczalnia.dto.CreateWypozyczenie;
 import wypozyczalnia.dto.WypozyczenieDTO;
+import wypozyczalnia.model.Wypozyczenie;
 import wypozyczalnia.service.WypozyczenieService;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class WypozyczenieController {
     //  Tworzymy Wypozyczenie gdzie cena wypozyczenia (cenaWypozyczenia) = 30 zł [per doba]
     //                              cena ostateczna   (cenaOstateczna)   = null
     @PostMapping ("/return")
-    public void returnKomplet(@RequestParam Long idWypozyczenie){
+        public void returnKomplet(@RequestParam Long idWypozyczenie){
         log.info("Request zwrot kompletu z id: "+ idWypozyczenie);
         wypozyczenieService.returnWypozyczenie(idWypozyczenie);
     }
@@ -36,5 +37,12 @@ public class WypozyczenieController {
     //                                                                     3 dni * 30 zł = 90 zł
     //
     @GetMapping("/list")
-    public List<WypozyczenieDTO> wypozyczenieDTOList(){return wypozyczenieService.listWypozyczenie();}
+    public List<WypozyczenieDTO> wypozyczenieDTOList(){return wypozyczenieService.listWypozyczenie();
+    }
+    @GetMapping("/show")
+    public List<WypozyczenieDTO> showUmowaWypozyczenia(@RequestParam(required = false) Long idWypozyczenie){
+        log.info("Request wyświetlenie kompletu z id: "+ idWypozyczenie);
+        return wypozyczenieService.showWypozyczenie(idWypozyczenie);
+    }
+
 }
