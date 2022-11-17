@@ -1,0 +1,16 @@
+
+.TableHeader  div {
+    border: 1px groove var(--border-color);
+    padding: 10px 30px 10px 30px;
+    background: var(--nawigacja);
+    color: ghostwhite;
+    display: flex;
+    justify-content: center;
+}
+
+.TableRow div {
+    border: 1px groove  var(--border-color);
+    padding: 5px 30px 5px 30px;
+    display: flex;
+    justify-content: center;
+}
